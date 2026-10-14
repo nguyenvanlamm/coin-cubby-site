@@ -49,7 +49,9 @@ It respects `prefers-reduced-motion` and works from the keyboard.
 ## Images
 
 - `assets/img/shots/*.webp`: 780×1688 WebP copies of 3× captures of the game's web build (Playwright, a 390×844 viewport). `play`, `home` and `stuck` come from `tool/screenshot_main.dart` (`?seed=7&warmup=300&tap=10` and `?seed=7&warmup=300&home=1`). `specials` and `win` come from a temporary entry that ran the bot until a star coin and a stone were on the tray, or until the tray was complete.
+- `assets/img/shots/*-390.webp` are 390×844 copies of the same shots, served through `srcset` to phones (Pillow, LANCZOS, quality 82).
 - `assets/img/icon-512.png`, `apple-touch-icon.png` and `favicon.png` are scaled from the game's `assets/icon/app_icon.png`. `favicon.svg` is a coin 12 with the copper cursor.
+- `assets/img/icon-336.webp` is `icon-512.png` at 336 px for the Get it section (2× of its 168 px slot); `srcset` still offers the 512 px PNG to 3× screens.
 - Share card: `assets/img/share-card.png` (1200×630) is the `og:image` of every page, rendered from `tools/share-card.html`:
 
   ```bash

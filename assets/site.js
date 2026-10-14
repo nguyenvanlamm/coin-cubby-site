@@ -161,7 +161,10 @@
       pockets[i] = pile();
       arrived.set(i, pockets[i].length);
     }
+    const keyed = document.activeElement === deal;
     render();
+    // A disabled Deal! would drop keyboard focus to <body>: hand it to the first new pile.
+    if (keyed && deal.disabled) tray.querySelector(`[data-i="${free[0]}"]`)?.focus({ preventScroll: true });
     say(`Dealt ${free.length} pile${free.length > 1 ? 's' : ''}. Stack the matching fronts.`);
     checkStuck();
   }
