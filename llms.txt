@@ -1,0 +1,20 @@
+# Coin Cubby
+
+> Coin Cubby is a coin sort and merge puzzle for iPhone, coming soon to the App Store. Coins of twelve numbers move between the pockets of a 3 × 5 tray; ten coins of one number merge into five of the next. The whole game is one long run on one tray, from copper 1s to the coin 12, opening all fifteen pockets on the way. Free to play, no ads, no account, no tracking; optional booster packs.
+
+- Tap a pocket to lift the same-number coins at its front; tap an empty pocket, or one whose front coin matches, to drop them. A pocket holds ten.
+- Ten of a kind merge into five of the next number; the first time a new number is made, the five open a locked pocket. Deal! drops new piles into up to three empty pockets (four from coin 6).
+- Twelve coins: copper 1, silver 2, gold 3, blue 4, green 5, purple 6, pink 7, teal 8, red 9, onyx 10, orange 11, sky 12. Each has a notch at value × 30° on its rim, so colour is never the only cue.
+- Twists: clover pocket (a merge there makes six coins), star coin (wild, from coin 5), stones (block a pocket, from coin 6; two merges next door or a Hammer break them), face-down "?" coins (from coin 7), missions (every three pay a booster).
+- Boosters: Undo and Hammer. Free from play (3 Undo + 2 Hammer at the start, first-ever coins 3–11, every three missions, every completed tray), capped at nine of each. Optional consumable packs: 5 Undo, 3 Hammer, Toolbox (10 Undo + 6 Hammer).
+- Saves after every move, on the device only. Plays offline.
+
+## Pages
+
+- [Home](https://nguyenvanlamm.github.io/coin-cubby-site/index.html.md): what the game is, how it plays, the twelve coins, twists, boosters and where to get it
+- [Support](https://nguyenvanlamm.github.io/coin-cubby-site/support.html.md): contact, how to play, common questions, purchases and progress
+- [Privacy Policy](https://nguyenvanlamm.github.io/coin-cubby-site/privacy.html.md): what stays on the device and what is never collected
+
+## Optional
+
+- [Website](https://nguyenvanlamm.github.io/coin-cubby-site/): the HTML landing page
