@@ -198,5 +198,62 @@
   deal.addEventListener('click', doDeal);
   reset.addEventListener('click', start);
 
+  // WebMCP: the visitor's four actions, offered to an AI agent in the browser.
+  // Each tool clicks the same control a person would, so the rules stay in one
+  // place. Older Chrome builds expose the API on navigator instead of document.
+  const mc = document.modelContext || navigator.modelContext;
+  if (mc && typeof mc.registerTool === 'function') {
+    const settle = () => new Promise((done) => {
+      const t0 = Date.now();
+      (function wait() { if (!busy || Date.now() - t0 > 1500) done(); else setTimeout(wait, 50); })();
+    });
+    const state = () => ({
+      pockets: pockets.map((p, i) => ({ pocket: i + 1, coins: p.slice(), front: p.length ? name(front(p), group(p)) : null })),
+      lifted: sel == null ? null : sel + 1,
+      nextCoin: Math.min(best + 1, TOP),
+      canDeal: !deal.disabled,
+      message: text.textContent,
+    });
+    const reply = async () => {
+      await settle();
+      return { content: [{ type: 'text', text: JSON.stringify(state()) }] };
+    };
+    const none = { type: 'object', properties: {} };
+    const tools = [
+      {
+        name: 'coin_cubby_get_tray',
+        description: 'Read the Coin Cubby demo tray: the coins in each of the four pockets (the last coin is at the front), which pocket is lifted, the next new coin, whether Deal! is available, and the message under the tray.',
+        inputSchema: none,
+        execute: reply,
+      },
+      {
+        name: 'coin_cubby_tap_pocket',
+        description: 'Tap pocket 1-4 of the demo tray, as a visitor would. The first tap lifts the same-number coins at its front; tapping an empty pocket, or one whose front coin matches, drops them there. A pocket holds ten, and ten of a kind merge into five of the next number.',
+        inputSchema: { type: 'object', properties: { pocket: { type: 'integer', minimum: 1, maximum: 4, description: 'Pocket number, 1-4 from left to right.' } }, required: ['pocket'] },
+        execute: (input) => {
+          const n = Number(input && input.pocket);
+          if (!Number.isInteger(n) || n < 1 || n > pockets.length) throw new Error('pocket must be an integer from 1 to 4');
+          tray.querySelector(`[data-i="${n - 1}"]`)?.click();
+          return reply();
+        },
+      },
+      {
+        name: 'coin_cubby_deal',
+        description: 'Press Deal! on the demo tray: new piles drop into up to two empty pockets. Does nothing when no pocket is empty.',
+        inputSchema: none,
+        execute: () => { if (!deal.disabled) deal.click(); return reply(); },
+      },
+      {
+        name: 'coin_cubby_reset',
+        description: 'Reset the demo tray to its starting coins.',
+        inputSchema: none,
+        execute: () => { reset.click(); return reply(); },
+      },
+    ];
+    for (const t of tools) {
+      try { Promise.resolve(mc.registerTool(t)).catch(() => {}); } catch (_) { /* the demo works without it */ }
+    }
+  }
+
   start();
 })();

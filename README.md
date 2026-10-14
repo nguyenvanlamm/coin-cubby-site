@@ -46,6 +46,8 @@ node tools/coins.mjs index.html 404.html tools/share-card.html
 
 It respects `prefers-reduced-motion` and works from the keyboard.
 
+In browsers with WebMCP (`document.modelContext`, or `navigator.modelContext` in older Chrome builds), it also registers four tools for AI agents: `coin_cubby_get_tray`, `coin_cubby_tap_pocket` (pocket 1–4), `coin_cubby_deal` and `coin_cubby_reset`. Each one clicks the same control a visitor would and returns the tray as JSON. Without the API nothing changes.
+
 ## Images
 
 - `assets/img/shots/*.webp`: 780×1688 WebP copies of 3× captures of the game's web build (Playwright, a 390×844 viewport). `play`, `home` and `stuck` come from `tool/screenshot_main.dart` (`?seed=7&warmup=300&tap=10` and `?seed=7&warmup=300&home=1`). `specials` and `win` come from a temporary entry that ran the bot until a star coin and a stone were on the tray, or until the tray was complete.
